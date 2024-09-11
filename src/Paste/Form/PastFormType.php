@@ -5,6 +5,7 @@ namespace App\Paste\Form;
 
 use App\Paste\Entity\Access;
 use App\Paste\Entity\ExpirationTime;
+use App\Paste\Entity\Language;
 use App\Paste\Entity\Paste;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -23,6 +24,9 @@ class PastFormType extends AbstractType
             ])
             ->add('access', EnumType::class, [
                 'class' => Access::class
+            ])
+            ->add('language', EnumType::class, [
+                'class' => Language::class
             ])
         ;
     }

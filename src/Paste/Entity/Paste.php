@@ -23,8 +23,11 @@ class Paste
 
     #[ORM\Column(type: 'integer', nullable: false, enumType: ExpirationTime::class)]
     private ExpirationTime $expirationTime;
+
     #[ORM\Column(type: 'string', nullable: false, enumType: Access::class)]
     private Access $access;
+    #[ORM\Column(type: 'string', nullable: false, enumType: Language::class)]
+    private Language $language;
 
     public function getId(): ?int
     {
@@ -72,5 +75,14 @@ class Paste
     public function setAccess(Access $access): void
     {
         $this->access = $access;
+    }
+    public function getLanguage(): Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(Language $language): void
+    {
+        $this->language = $language;
     }
 }
