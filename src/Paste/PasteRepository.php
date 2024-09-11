@@ -16,6 +16,14 @@ class PasteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Paste::class);
     }
+    public function findByHash(string $hash): ?Paste
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :hash')
+            ->setParameter('hash', $hash)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     //    /**
     //     * @return Paste[] Returns an array of Paste objects

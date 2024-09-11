@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Форма добаления пасты{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.text) }}
+    <input type="submit">
+{{ form_end(form) }}
+{% endblock %}
