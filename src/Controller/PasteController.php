@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Paste\Entity\Paste;
 use App\Paste\Form\PastFormType;
 use App\Paste\PasteRepository;
+use App\Paste\Service\PasteLinkCreator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,14 +39,16 @@ class PasteController extends AbstractController
     }
 
     #[Route('/{pastHash}', name: 'past-page')]
-    public function pastPage(Request $request, PasteRepository $repository, string $pastHash): Response
+    public function pastPage(Request $request, PasteRepository $repository, string $pastHash, PasteLinkCreator $linkCreator): Response
     {
         $paste = $repository->findByHash($pastHash);
         if (is_null($paste)) {
             return $this->render('not-found.html.twig');
         }
+        $link = $linkCreator->getLink($paste);
         return $this->render('paste/paste.html.twig', [
-            'paste' => $paste
+            'paste' => $paste,
+            'link' => $link
         ]);
     }
 }

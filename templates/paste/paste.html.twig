@@ -4,10 +4,11 @@
 
 {% block body %}
 <div class="paste">
-    <div class="name">Name: {{ paste.name }}</div>
-    <div class="text">Paste: {{ paste.text }}</div>
-    <div class="text">Expiration Time: {{ paste.expirationTime.name }}</div>
-    <div class="text">Access: {{ paste.access.name }}</div>
-    <div class="text">Language: {{ paste.language.name }}</div>
+    <div>Name: {{ paste.name }}</div>
+    <div>Paste: {{ paste.text }}</div>
+    <div>Expiration Time: {{ paste.expirationTime.name }}</div>
+    <div>Access: {{ paste.access.name }}</div>
+    <div>Language: {{ paste.language.name }}</div>
+    <div>Link: {{ link }}</div>
 </div>
 {% endblock %}
