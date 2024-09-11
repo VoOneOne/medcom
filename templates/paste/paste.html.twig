@@ -10,5 +10,6 @@
     <div>Access: {{ paste.access.name }}</div>
     <div>Language: {{ paste.language.name }}</div>
     <div>Link: {{ link }}</div>
+    <div>Created at: {{ paste.createdAt|date('Y-m-d') }}</div>
 </div>
 {% endblock %}

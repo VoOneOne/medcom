@@ -29,6 +29,9 @@ class Paste
     #[ORM\Column(type: 'string', nullable: false, enumType: Language::class)]
     private Language $language;
 
+    #[ORM\Column(nullable: false)]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,5 +87,15 @@ class Paste
     public function setLanguage(Language $language): void
     {
         $this->language = $language;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }
