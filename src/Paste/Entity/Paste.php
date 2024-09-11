@@ -22,7 +22,9 @@ class Paste
     private ?string $text = null;
 
     #[ORM\Column(type: 'integer', nullable: false, enumType: ExpirationTime::class)]
-    private ExpirationTime $expirationTime = ExpirationTime::WITHOUT_LIMIT;
+    private ExpirationTime $expirationTime;
+    #[ORM\Column(type: 'string', nullable: false, enumType: Access::class)]
+    private Access $access;
 
     public function getId(): ?int
     {
@@ -53,13 +55,22 @@ class Paste
         return (string)$this->id;
     }
 
-    public function getExpirationTime(): ?ExpirationTime
+    public function getExpirationTime(): ExpirationTime
     {
         return $this->expirationTime;
     }
 
-    public function setExpirationTime(?ExpirationTime $expirationTime): void
+    public function setExpirationTime(ExpirationTime $expirationTime): void
     {
         $this->expirationTime = $expirationTime;
+    }
+    public function getAccess(): Access
+    {
+        return $this->access;
+    }
+
+    public function setAccess(Access $access): void
+    {
+        $this->access = $access;
     }
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Paste\Form;
 
+use App\Paste\Entity\Access;
 use App\Paste\Entity\ExpirationTime;
 use App\Paste\Entity\Paste;
 use Symfony\Component\Form\AbstractType;
@@ -19,6 +20,9 @@ class PastFormType extends AbstractType
             ->add('text')
             ->add('expirationTime', EnumType::class , [
                 'class' => ExpirationTime::class
+            ])
+            ->add('access', EnumType::class, [
+                'class' => Access::class
             ])
         ;
     }
