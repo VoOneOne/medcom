@@ -32,6 +32,9 @@ class Paste
     #[ORM\Column(nullable: false)]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 8)]
+    private ?string $hash = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,10 +58,6 @@ class Paste
     public function setText(string $text): void
     {
         $this->text = $text;
-    }
-    public function getHash(): string
-    {
-        return (string)$this->id;
     }
 
     public function getExpirationTime(): ExpirationTime
@@ -97,5 +96,15 @@ class Paste
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+    public function setHash(string $hash): static
+    {
+        $this->hash = $hash;
+
+        return $this;
     }
 }

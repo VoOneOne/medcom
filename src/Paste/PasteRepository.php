@@ -19,7 +19,7 @@ class PasteRepository extends ServiceEntityRepository
     public function findByHash(string $hash): ?Paste
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.id = :hash')
+            ->andWhere('p.hash = :hash')
             ->setParameter('hash', $hash)
             ->getQuery()
             ->getOneOrNullResult();
