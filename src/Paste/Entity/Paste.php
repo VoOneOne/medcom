@@ -21,6 +21,9 @@ class Paste
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
+    #[ORM\Column(type: 'integer', nullable: false, enumType: ExpirationTime::class)]
+    private ExpirationTime $expirationTime = ExpirationTime::WITHOUT_LIMIT;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -48,5 +51,15 @@ class Paste
     public function getHash(): string
     {
         return (string)$this->id;
+    }
+
+    public function getExpirationTime(): ?ExpirationTime
+    {
+        return $this->expirationTime;
+    }
+
+    public function setExpirationTime(?ExpirationTime $expirationTime): void
+    {
+        $this->expirationTime = $expirationTime;
     }
 }
