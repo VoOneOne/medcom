@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PastFormType extends AbstractType
 {
+    public function __construct(){}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

@@ -15,7 +15,7 @@ class PanelQuery
     {
         $qb = $this->entityManager->createQueryBuilder();
         return $qb
-            ->select('p.name', 'p.hash', )
+            ->select('p.name', 'p.hash' )
             ->from(Paste::class, 'p')
             ->where(
                 $qb->expr()->andX(

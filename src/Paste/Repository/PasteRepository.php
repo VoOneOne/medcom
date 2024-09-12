@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Paste;
+namespace App\Paste\Repository;
 
 use App\Paste\Entity\Paste;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

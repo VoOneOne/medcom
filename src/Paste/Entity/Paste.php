@@ -3,17 +3,22 @@ declare(strict_types=1);
 
 namespace App\Paste\Entity;
 
-use App\Paste\PasteRepository;
+
+use App\Entity\PasteUser;
+use App\Paste\Repository\PasteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PasteRepository::class)]
 class Paste
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private Uuid $id;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -38,7 +43,15 @@ class Paste
     #[ORM\Column(length: 8)]
     private ?string $hash = null;
 
-    public function getId(): ?int
+    #[ORM\ManyToOne(targetEntity: PasteUser::class, inversedBy: 'pastes')]
+    private ?PasteUser $user = null;
+
+    public function __construct(Uuid $id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): Uuid
     {
         return $this->id;
     }
@@ -132,5 +145,17 @@ class Paste
             return false;
         }
         return $this->expirationDate < $now;
+    }
+
+    public function getUser(): ?PasteUser
+    {
+        return $this->user;
+    }
+
+    public function setUser(?PasteUser $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
