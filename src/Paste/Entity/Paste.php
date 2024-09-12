@@ -107,7 +107,7 @@ class Paste
         if ($this->expirationTime !== ExpirationTime::WITHOUT_LIMIT) {
             $interval = sprintf('PT%dM', $this->expirationTime->value);
             $dateInterval = new \DateInterval($interval);
-            $this->expirationDate = $createdAt->sub($dateInterval);
+            $this->expirationDate = $createdAt->add($dateInterval);
         }
     }
     public function getExpirationDate(): ?\DateTimeImmutable
@@ -125,5 +125,12 @@ class Paste
         $this->hash = $hash;
 
         return $this;
+    }
+    public function isExpired(\DateTimeImmutable $now): bool
+    {
+        if(is_null($this->expirationDate)){
+            return false;
+        }
+        return $this->expirationDate < $now;
     }
 }

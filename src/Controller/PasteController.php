@@ -52,7 +52,7 @@ class PasteController extends AbstractController
     public function pastPage(Request $request, PasteRepository $repository, string $pastHash, PasteLinkCreator $linkCreator): Response
     {
         $paste = $repository->findByHash($pastHash);
-        if (is_null($paste)) {
+        if (is_null($paste) || $paste->isExpired(new \DateTimeImmutable())) {
             return $this->render('not-found.html.twig');
         }
         $link = $linkCreator->getLink($paste);
