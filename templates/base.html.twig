@@ -15,4 +15,14 @@
     <a href="/">Перейти на главную</a>
         {% block body %}{% endblock %}
     </body>
+    {% if panelPastes is defined %}
+    <div class="pasts-panel">
+            <div>Last ten pastes</div>
+            {% for past in panelPastes %}
+                <div class="past">
+                    <a href="{{ past.link }}">{{ past.name ?? past.hash }}</a>
+                </div>
+            {% endfor %}
+    </div>
+    {% endif %}
 </html>

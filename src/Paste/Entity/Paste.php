@@ -32,6 +32,9 @@ class Paste
     #[ORM\Column(nullable: false)]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $expirationDate = null;
+
     #[ORM\Column(length: 8)]
     private ?string $hash = null;
 
@@ -64,7 +67,6 @@ class Paste
     {
         return $this->expirationTime;
     }
-
     public function setExpirationTime(ExpirationTime $expirationTime): void
     {
         $this->expirationTime = $expirationTime;
@@ -78,6 +80,7 @@ class Paste
     {
         $this->access = $access;
     }
+
     public function getLanguage(): Language
     {
         return $this->language;
@@ -96,11 +99,27 @@ class Paste
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
+        if (empty($this->expirationTime)) {
+            throw new \DomainException(
+                sprintf('Invalid %s object. Expected expirationTime init', self::class)
+            );
+        }
+        if ($this->expirationTime !== ExpirationTime::WITHOUT_LIMIT) {
+            $interval = sprintf('PT%dM', $this->expirationTime->value);
+            $dateInterval = new \DateInterval($interval);
+            $this->expirationDate = $createdAt->sub($dateInterval);
+        }
     }
+    public function getExpirationDate(): ?\DateTimeImmutable
+    {
+        return $this->expirationDate;
+    }
+
     public function getHash(): string
     {
         return $this->hash;
     }
+
     public function setHash(string $hash): static
     {
         $this->hash = $hash;

@@ -10,6 +10,9 @@
     <div>Access: {{ paste.access.name }}</div>
     <div>Language: {{ paste.language.name }}</div>
     <div>Link: {{ link }}</div>
-    <div>Created at: {{ paste.createdAt|date('Y-m-d') }}</div>
+    <div>Created at: {{ paste.createdAt|date('Y-m-d H:i:s') }}</div>
+    {% if paste.expirationDate is not null %}
+        <div>Expiration date: {{ paste.expirationDate|date('Y-m-d H:i:s') }}</div>
+    {% endif %}
 </div>
 {% endblock %}

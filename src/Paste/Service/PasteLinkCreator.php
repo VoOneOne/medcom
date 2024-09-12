@@ -13,6 +13,10 @@ class PasteLinkCreator
 
     public function getLink(Paste $paste): string
     {
-        return sprintf('%s/%s', $this->baseUrl, $paste->getHash());
+        return $this->getFromHash($paste->getHash());
+    }
+    public function getFromHash(string $hash): string
+    {
+        return sprintf('%s/%s', $this->baseUrl, $hash);
     }
 }

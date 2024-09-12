@@ -6,8 +6,8 @@ namespace App\Controller;
 use App\Paste\Entity\Paste;
 use App\Paste\Form\PastFormType;
 use App\Paste\PasteRepository;
-use App\Paste\Query\Query;
 use App\Paste\Service\HashService;
+use App\Paste\Service\PanelService;
 use App\Paste\Service\PasteLinkCreator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,14 +19,13 @@ class PasteController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(
-        Request $request,
+        Request                $request,
         EntityManagerInterface $entityManager,
-        Query $query,
-        HashService $hashService
+        HashService            $hashService,
+        PanelService $panelService
     ): Response
     {
         $paste = new Paste();
-
         $form = $this->createForm(PastFormType::class, $paste);
 
         $form->handleRequest($request);
@@ -43,10 +42,9 @@ class PasteController extends AbstractController
             $entityManager->flush();
             return $this->redirect('/' . $paste->getHash());
         }
-//        $lastPublicPastes = $query->findLastPublicPaste($now);
         return $this->render('paste/index.html.twig', [
             'form' => $form,
-//            'lastPublicPastes' => $lastPublicPastes
+            'panelPastes' => $panelService->getLastPastes($now)
         ]);
     }
 
