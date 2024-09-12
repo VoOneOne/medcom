@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240911103149 extends AbstractMigration
+final class Version20240912123119 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,12 @@ final class Version20240911103149 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE paste (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, text CLOB NOT NULL)');
+        $this->addSql('CREATE TABLE paste (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, text CLOB NOT NULL, expiration_time INTEGER NOT NULL, access VARCHAR(255) NOT NULL, language VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        , expiration_date DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
+        , hash VARCHAR(8) NOT NULL)');
+        $this->addSql('CREATE TABLE user (id BLOB NOT NULL --(DC2Type:uuid)
+        , type VARCHAR(255) NOT NULL, username VARCHAR(180) DEFAULT NULL, roles CLOB DEFAULT NULL --(DC2Type:json)
+        , password VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE messenger_messages (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body CLOB NOT NULL, headers CLOB NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , available_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , delivered_at DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
@@ -34,6 +39,7 @@ final class Version20240911103149 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP TABLE paste');
+        $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE messenger_messages');
     }
 }
