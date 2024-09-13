@@ -43,7 +43,7 @@ class Paste
     #[ORM\Column(length: 8)]
     private ?string $hash = null;
 
-    #[ORM\ManyToOne(targetEntity: PasteUser::class, inversedBy: 'pastes')]
+    #[ORM\ManyToOne(targetEntity: PasteUser::class, cascade: ['persist'], inversedBy: 'pastes')]
     private ?PasteUser $user = null;
 
     public function __construct(Uuid $id)
