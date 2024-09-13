@@ -50,7 +50,7 @@ class PasteController extends AbstractController
             'form' => $form,
             'panel' => $this->panelService->getPasteData(
                 new Page($request->query->getInt('page', 1)),
-                new Limit($request->query->getInt('limit', 10)),
+                new Limit($request->query->getInt('limit', 3)),
                 new \DateTimeImmutable()
             )
         ]);
