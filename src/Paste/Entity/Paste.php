@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Paste\Entity;
 
-
-use App\Entity\PasteUser;
 use App\Paste\Repository\PasteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,8 +41,6 @@ class Paste
     #[ORM\Column(length: 8)]
     private ?string $hash = null;
 
-    #[ORM\ManyToOne(targetEntity: PasteUser::class, cascade: ['persist'], inversedBy: 'pastes')]
-    private ?PasteUser $user = null;
 
     public function __construct(Uuid $id)
     {
@@ -147,15 +143,4 @@ class Paste
         return $this->expirationDate < $now;
     }
 
-    public function getUser(): ?PasteUser
-    {
-        return $this->user;
-    }
-
-    public function setUser(?PasteUser $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }

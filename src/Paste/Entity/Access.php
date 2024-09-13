@@ -7,5 +7,4 @@ enum Access: string
 {
     case Public = "public";
     case Unlisted = "unlisted";
-    case Private = "private";
 }

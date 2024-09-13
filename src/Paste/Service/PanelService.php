@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace App\Paste\Service;
 
 use App\Paste\Query\PanelQuery;
+use App\Share\ObjectValue\Limit;
+use App\Share\ObjectValue\Page;
+use App\Share\ObjectValue\Range;
 
 class PanelService
 {
@@ -11,12 +14,14 @@ class PanelService
     {
     }
 
-    public function getLastPastes(\DateTimeImmutable $now): array
+    public function getPasteData(Page $page, Limit $limit, \DateTimeImmutable $now): array
     {
-        $pastes = $this->query->getLastPublicPastes(10, $now);
-        foreach ($pastes as &$paste) {
+        $range = Range::createFromPageAndLimit($page, $limit);
+        $date = $this->query->getLastPublicPastesPaginate($range, $now);
+        foreach ($date['data'] as &$paste) {
             $paste['link'] = $this->linkCreator->getFromHash($paste['hash']);
         }
-        return $pastes;
+        $date['page'] = $page->getValue();
+        return $date;
     }
 }

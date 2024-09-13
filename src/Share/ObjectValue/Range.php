@@ -14,7 +14,7 @@ class Range
     public static function createFromPageAndLimit(Page $page, Limit $limit): self
     {
         $min = ($page->getValue() - 1) * $limit->getValue();
-        $max = $page->getValue() * $limit->getValue();
+        $max = $page->getValue() * $limit->getValue() - 1;
         return new self($min, $max);
     }
 
