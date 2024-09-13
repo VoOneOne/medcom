@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataFixtures;
+namespace App\Paste\DataFixtures;
 
 use App\Paste\Entity\Access;
 use App\Paste\Entity\ExpirationTime;
