@@ -16,7 +16,7 @@ class PasteUser
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne()]
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'id')]
     private ?User $user = null;
 
     /**

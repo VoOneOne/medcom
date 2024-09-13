@@ -16,14 +16,15 @@
     <a href="/register">Register</a>
     <a href="/login">Log In</a>
     <a href="/logout">Log Out</a>
+    <a href="/my-pastes/1">My pastes</a>
         {% block body %}{% endblock %}
     </body>
     {% if panelPastes is defined %}
-    <div class="pasts-panel">
+    <div class="pastes-panel">
             <div>Last ten pastes</div>
-            {% for past in panelPastes %}
-                <div class="past">
-                    <a href="{{ past.link }}">{{ past.name ?? past.hash }}</a>
+            {% for paste in panelPastes %}
+                <div class="paste">
+                    <a href="{{ paste.link }}">{{ paste.name ?? paste.hash }}</a>
                 </div>
             {% endfor %}
     </div>

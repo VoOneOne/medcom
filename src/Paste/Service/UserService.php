@@ -4,13 +4,10 @@ declare(strict_types=1);
 namespace App\Paste\Service;
 
 use App\Entity\PasteUser;
-use App\Entity\User;
 use App\Paste\Entity\Paste;
-use App\Paste\Repository\PasteRepository;
 use App\Repository\PasteUserRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
 
@@ -39,7 +36,7 @@ class UserService
                 $authUser = $this->userRepository->findOneBy(['id' => $user->getUserIdentifier()]);
                 $pasteUser = new PasteUser();
                 $pasteUser->setUser($authUser);
-                $this->entityManager->persist($authUser);
+                $this->entityManager->persist($pasteUser);
             }
             $pasteUser->addPaste($paste);
         } else {
