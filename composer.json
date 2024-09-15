@@ -84,7 +84,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "phpunit --colors=always",
+        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes",
+        "psalm": "psalm --config=psalm.xml"
     },
     "conflict": {
         "symfony/symfony": "*"

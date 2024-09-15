@@ -1,10 +1,31 @@
 
 services:
+  nginx:
+    build:
+      context: docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/app
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build:
+      context: docker/php-fpm
+    volumes:
+      - ./:/app
+
+  php-cli:
+    build:
+      context: docker/php-cli
+    volumes:
+      - ./:/app
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     ports:
-      - "5432"
+      - 5432:5432
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
       # You should definitely change the password in production
